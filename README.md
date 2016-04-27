@@ -1,4 +1,7 @@
 # Markov-Graphic-Text-Generator
+
+![screenshot](http://i.imgur.com/3UZPC6c.png)
+
 A simple Markov Chain text generator with some (not so) pretty graphs.
 
 To run the program, simply copy all the files into a directory and then run the main.py.
