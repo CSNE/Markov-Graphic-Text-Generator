@@ -7,7 +7,7 @@ class AnimatedValue:
 
     def animate(self, target, duration, ease_in, ease_out):
         if self.being_animated:#self value is currently being animated, need to commit the value before animating.
-            self.value=self.getValue()
+            self.value=self.get_value()
 
         self.target=target
         self.startTime=time()
@@ -21,11 +21,11 @@ class AnimatedValue:
         self.being_animated=False
 
 
-    def isAnimating(self):
+    def is_animating(self):
         return self.being_animated
 
 
-    def getValue(self, currentTime):
+    def get_value(self, currentTime):
         if (not self.being_animated):
             return self.value
 
@@ -74,7 +74,7 @@ def main():
     av=AnimatedValue(10)
     av.animate(100, 10, (True, True))
     while True:
-        print(av.getValue(time()))
+        print(av.get_value(time()))
         sleep(0.1)
 
 
