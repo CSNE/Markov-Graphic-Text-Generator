@@ -1,6 +1,6 @@
 # Markov-Graphic-Text-Generator
 
-![screenshot](http://i.imgur.com/3UZPC6c.png)
+![screenshot](http://i.imgur.com/ca8F1BV.gif)
 
 A simple Markov Chain text generator with some (not so) pretty graphs.
 
