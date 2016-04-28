@@ -211,6 +211,7 @@ class MarkovDraw:
 nodes = list()
 active_node = None
 first_node = None
+last_node=None
 
 active_node_draw = None
 nodes_draw = []
@@ -240,7 +241,7 @@ def split_by(s, mode):
 
 
 def generate_chain(lst, mode):
-    global nodes, active_node, first_node
+    global nodes, active_node, first_node, last_node
     global canvas
     global input_options_progress
     global tk
@@ -250,6 +251,7 @@ def generate_chain(lst, mode):
     active_node = None
     prev_node = None
     first_node = None
+    last_node=None
 
     percentage = 0
     total = len(lst)
@@ -275,6 +277,8 @@ def generate_chain(lst, mode):
         if prev_node != None:
             prev_node.connect(mn)
 
+        last_node=mn
+
         '''
         for j in nodes:  # TODO performance...
             if j.value == lst[i]:
@@ -293,7 +297,7 @@ def generate_chain(lst, mode):
     global chain_info_numnodes
     chain_info_numnodes.set("Number of nodes: " + str(len(nodes)))
     chain_info_connections.set("Number of connections:" + str(len(lst)))
-    chain_info_closed.set(["Chain is closed.", "Chain is open"][len(nodes[-1].destination_nodes) == 0])
+    chain_info_closed.set(["Chain is closed.", "Chain is open"][len(last_node.destination_nodes) == 0])
     print("Finished Generating Node Graph.")
     input_options_progress.set(0)
 
@@ -323,7 +327,7 @@ def parse_and_generate():
     # print(input_options_strip_newlines.get(), input_options_strip_spaces.get())
 
     if input_options_strip_newlines.get() == "1":
-        inp = inp.replace("\n", "")
+        inp = inp.replace("\n", " ")
     if input_options_strip_spaces.get() == "1":
         inp = inp.replace(" ", "")
     if input_options_case.get() == "1":
@@ -521,15 +525,15 @@ input_tab.columnconfigure(1, weight=1)
 # Tk>Menu>Input Tab>Options>Strip Spaces
 input_options_strip_spaces = Variable()
 input_options_strip_spaces.set(0)
-input_options_strip_spaces_btn = Checkbutton(input_options_frame, text='Strip Spaces (_)',
+input_options_strip_spaces_btn = Checkbutton(input_options_frame, text='Strip Spaces ( _ )',
                                              variable=input_options_strip_spaces)
-input_options_strip_spaces_btn.grid(column=1, row=1, columnspan=2, sticky=(W, E))
+input_options_strip_spaces_btn.grid(column=1, row=2, columnspan=2, sticky=(W, E))
 
 input_options_strip_newlines = Variable()
 input_options_strip_newlines.set(0)
-input_options_strip_newlines_btn = Checkbutton(input_options_frame, text='Strip Newlines (\\n)',
+input_options_strip_newlines_btn = Checkbutton(input_options_frame, text='Newlines to Space ( \\n --> _ )',
                                                variable=input_options_strip_newlines)
-input_options_strip_newlines_btn.grid(column=1, row=2, columnspan=2, sticky=(W, E))
+input_options_strip_newlines_btn.grid(column=1, row=1, columnspan=2, sticky=(W, E))
 
 input_options_case = Variable()
 input_options_case.set(0)
